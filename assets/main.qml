@@ -85,35 +85,38 @@ TabbedPane {
                 }
 
                 Container {
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    focusPolicy: FocusPolicy.Default
+//                    horizontalAlignment: HorizontalAlignment.Center
+//                    focusPolicy: FocusPolicy.Default
                     background: Color.LightGray
-                    leftPadding: 8.0
-                    bottomPadding: 8.0
-                    topPadding: 8.0
-                    rightPadding: 8.0
+//                    leftPadding: 35.0
+//                    bottomPadding: 8.0
+//                    topPadding: 8.0
+//                    rightPadding: 15.0
                     ListView {
                         id: keyItemList
                         dataModel: theModel
-
+//                        stickToEdgePolicy: ListViewStickToEdgePolicy.Default
                         //                        scrollRole: ScrollRole.None
                         snapMode: SnapMode.LeadingEdge
                         layout: StackListLayout {
                             orientation: LayoutOrientation.LeftToRight
                             headerMode: ListHeaderMode.None
                         }
-//                        flickMode: FlickMode.Momentum
-
-                        leftPadding: 8
-                        rightPadding: 8
+                        flickMode: FlickMode.Momentum
+                        scrollIndicatorMode: ScrollIndicatorMode.None
+//                        leftPadding: 8
+//                        rightPadding: 8
                         listItemComponents: [
                             ListItemComponent {
                                 type: 'item'
                                 Container {
                                     preferredHeight: ui.du(20)
                                     preferredWidth: ui.du(25)
+                                    topPadding: 20
+                                    leftPadding: 15
+                                    rightPadding: 5
                                     horizontalAlignment: HorizontalAlignment.Center
-                                    verticalAlignment: VerticalAlignment.Top
+                                    verticalAlignment: VerticalAlignment.Center
                                     KeyItem {
                                         name: ListItemData.name
                                         nowPic: ListItemData.nowPic
@@ -387,6 +390,10 @@ TabbedPane {
     } //End of third tab
     
     onCreationCompleted: {
+//        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
+//        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
+//        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
+        
         console.log("ekselog: onCreationCompleted");
         _nao.getdata();
         console.log("ekselog: _nao.getdata() Completed");

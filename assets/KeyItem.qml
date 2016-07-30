@@ -9,6 +9,8 @@ Container {
     property string rate
     background: Color.White
     
+    horizontalAlignment: HorizontalAlignment.Center
+    verticalAlignment: VerticalAlignment.Center
     // top to bottom layout
     layout: StackLayout {
         orientation: LayoutOrientation.TopToBottom
