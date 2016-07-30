@@ -28,10 +28,11 @@ public:
     void loadJsonData(QFile& jsonFile);
     void getRateOfSpecifiy(const QString& code);
 
-    Q_SIGNAL void returned(bool success,QString resp);
+    Q_SIGNAL void keyReturned(bool success,QString resp);
+    Q_SIGNAL void starReturned(bool success,QString resp);
 
 public Q_SLOTS:
-    QString getdata();
+    void getdata();
     void getKeyItems();
 
 private slots:

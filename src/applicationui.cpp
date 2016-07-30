@@ -49,6 +49,7 @@ ApplicationUI::ApplicationUI() :
     // Create root object for the UI
     Nao* nao = new Nao(this);
     qDebug() << "application ui.cpp start";
+    nao->getdata();
     nao->getKeyItems();
     qDebug() << "application ui.cpp end";
     qml->setContextProperty("_nao", nao);

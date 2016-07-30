@@ -94,7 +94,7 @@ TabbedPane {
 //                    rightPadding: 15.0
                     ListView {
                         id: keyItemList
-                        dataModel: theModel
+                        dataModel: theKeyItemsModel
 //                        stickToEdgePolicy: ListViewStickToEdgePolicy.Default
                         //                        scrollRole: ScrollRole.None
                         snapMode: SnapMode.LeadingEdge
@@ -124,6 +124,10 @@ TabbedPane {
                                         dot: ListItemData.dot
                                         rate: ListItemData.rate
                                         yestodEndPri: ListItemData.yestodEndPri
+                                        topPadding: 20.0
+                                        bottomMargin: 20.0
+                                        topMargin: 20.0
+                                        bottomPadding: 20.0
                                     }
 
                                     topMargin: ui.du(1.0)
@@ -210,7 +214,7 @@ TabbedPane {
                     //! [1]
                     // The list view with all events
                     ListView {
-                        dataModel: _nao.model
+                        dataModel: theStarItemsModel
                         
                         listItemComponents: [
                             ListItemComponent {
@@ -395,10 +399,29 @@ TabbedPane {
 //        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
         
         console.log("ekselog: onCreationCompleted");
-        _nao.getdata();
+        _nao.starReturned.connect(appendStarItemData);
+//        _nao.getdata();
         console.log("ekselog: _nao.getdata() Completed");
-        _nao.returned.connect(appendKeyItemData);
+        _nao.keyReturned.connect(appendKeyItemData);
         console.log("ekselog: _nao.getKeyItems() Completed");
+    }
+    
+    function appendStarItemData(success, resp){
+        if (success) {
+            var keyItemObj = JSON.parse(resp);
+            if (keyItemObj.reason == "SUCCESSED!") {
+                var yestodEndPri = keyItemObj.result[0].data.yestodEndPri;
+                var nowPri = keyItemObj.result[0].data.nowPri;
+                var gid = keyItemObj.result[0].data.gid;
+                
+                var name = keyItemObj.result[0].dapandata.name;
+                var nowPic = keyItemObj.result[0].dapandata.nowPic;
+                var dot = keyItemObj.result[0].dapandata.dot;
+                var rate = keyItemObj.result[0].dapandata.rate;
+                
+                theStarItemsModel.insert({"gid": gid, "name":name, "nowPic": nowPic, "dot": dot, "rate": rate, "yestodEndPri": yestodEndPri, "nowPri": nowPri});
+            }
+        }
     }
     
     function appendKeyItemData(success, resp){
@@ -414,7 +437,7 @@ TabbedPane {
                 var dot = keyItemObj.result[0].dapandata.dot;
                 var rate = keyItemObj.result[0].dapandata.rate;
 
-                theModel.insert({"gid": gid, "name":name, "nowPic": nowPic, "dot": dot, "rate": rate, "yestodEndPri": yestodEndPri, "nowPri": nowPri});
+                theKeyItemsModel.insert({"gid": gid, "name":name, "nowPic": nowPic, "dot": dot, "rate": rate, "yestodEndPri": yestodEndPri, "nowPri": nowPri});
             }
         }
     }
@@ -427,7 +450,11 @@ TabbedPane {
             }
         },
         GroupDataModel {
-            id: theModel
+            id: theKeyItemsModel
+            grouping: ItemGrouping.None
+        },
+        GroupDataModel {
+            id: theStarItemsModel
             grouping: ItemGrouping.None
         }
     ]

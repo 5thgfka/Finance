@@ -11,6 +11,11 @@ Container {
     
     horizontalAlignment: HorizontalAlignment.Center
     verticalAlignment: VerticalAlignment.Center
+    
+    topPadding: 10
+    bottomPadding: 10
+    leftPadding: 10
+    rightPadding: 10
     // top to bottom layout
     layout: StackLayout {
         orientation: LayoutOrientation.TopToBottom
