@@ -1,0 +1,14 @@
+1
+12
+config.json
+images/ads/ad1.png
+images/menuicon/icon_add.png
+images/menuicon/icon_index.png
+images/menuicon/icon_search.png
+images/menuicon/icon_star.png
+images/menuicon/icon_star_side.png
+images/menuicon/icon_trans.png
+KeyItem.qml
+main.qml
+StockPage.qml
+stocks.json
