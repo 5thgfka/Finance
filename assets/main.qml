@@ -294,7 +294,7 @@ TabbedPane {
                                             spaceQuota: 2
                                         }
                                         Label {
-                                            text: ListItemData.nowPic + "%"
+                                            text: parseFloat(ListItemData.nowPic) < 0 ? ListItemData.nowPic + "%": "+" + ListItemData.nowPic + "%"
                                         }
                                     }
                                 }
@@ -309,6 +309,16 @@ TabbedPane {
                             StPage.nowPic = selected.nowPic;
                             StPage.rate = selected.rate;
                             StPage.yestodEndPri = selected.yestodEndPri;
+                            StPage.traAmount = selected.traAmount;
+                            StPage.traNumber = selected.traNumber;
+                            StPage.todayStartPri = selected.todayStartPri;
+                            StPage.todayMax = selected.todayMax;
+                            StPage.todayMin = selected.todayMin;
+                            StPage.monthurl = selected.monthurl;
+                            StPage.weekurl = selected.weekurl;
+                            StPage.dayurl = selected.dayurl;
+                            StPage.minurl = selected.minurl;
+                            
                             StPage.open();
                         }
                     }
@@ -440,10 +450,19 @@ TabbedPane {
                 var todayMax = keyItemObj.result[0].data.todayMax;
                 var todayMin = keyItemObj.result[0].data.todayMin;
                 var todayStartPri = keyItemObj.result[0].data.todayStartPri;
+                var traAmount = keyItemObj.result[0].data.traAmount;
+                var traNumber = keyItemObj.result[0].data.traNumber;
+                
                 var name = keyItemObj.result[0].dapandata.name;
                 var nowPic = keyItemObj.result[0].dapandata.nowPic;
                 var dot = keyItemObj.result[0].dapandata.dot;
                 var rate = keyItemObj.result[0].dapandata.rate;
+                
+                var minurl = keyItemObj.result[0].gopicture.minurl
+                var dayurl = keyItemObj.result[0].gopicture.dayurl
+                var weekurl = keyItemObj.result[0].gopicture.weekurl
+                var monthurl = keyItemObj.result[0].gopicture.monthurl
+                
                 var dict = {
                      "gid": gid, "dot": dot, "name": name,
                      "rate": rate, "nowPic": nowPic, "yestodEndPri": yestodEndPri, 
@@ -454,7 +473,9 @@ TabbedPane {
                      "buyFivePri": buyFivePri, "buyFour": buyFour, "buyFourPri": buyFourPri, 
                      "buyThree": buyThree, "buyThreePri": buyThreePri, "buyTwo": buyTwo, 
                      "buyTwoPri": buyTwoPri, "buyOne": buyOne, "buyOnePri": buyOnePri, 
-                     "todayMax": todayMax, "todayMin": todayMin, "todayStartPri": todayStartPri
+                     "todayMax": todayMax, "todayMin": todayMin, "todayStartPri": todayStartPri,
+                     "traAmount": traAmount, "traNumber": traNumber, "minurl": minurl,
+                     "dayurl": dayurl, "weekurl": weekurl, "monthurl": monthurl
                      };
                 theStarItemsModel.insert(dict);
             }

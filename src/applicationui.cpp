@@ -22,12 +22,14 @@
 #include <bb/cascades/LocaleHandler>
 #include <bb/system/SystemToast>
 #include <bb/cascades/ListView>
+#include "WebImageView.hpp"
 
 using namespace bb::cascades;
 
 ApplicationUI::ApplicationUI() :
         QObject()
 {
+    qmlRegisterType<WebImageView>("WebImageView", 1, 0, "WebImageView");
     // prepare the localization
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
