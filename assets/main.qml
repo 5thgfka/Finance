@@ -85,17 +85,17 @@ TabbedPane {
                 }
 
                 Container {
-//                    horizontalAlignment: HorizontalAlignment.Center
-//                    focusPolicy: FocusPolicy.Default
+                    //                    horizontalAlignment: HorizontalAlignment.Center
+                    //                    focusPolicy: FocusPolicy.Default
                     background: Color.LightGray
-//                    leftPadding: 35.0
-//                    bottomPadding: 8.0
-//                    topPadding: 8.0
-//                    rightPadding: 15.0
+                    //                    leftPadding: 35.0
+                    //                    bottomPadding: 8.0
+                    //                    topPadding: 8.0
+                    //                    rightPadding: 15.0
                     ListView {
                         id: keyItemList
                         dataModel: theKeyItemsModel
-//                        stickToEdgePolicy: ListViewStickToEdgePolicy.Default
+                        //                        stickToEdgePolicy: ListViewStickToEdgePolicy.Default
                         //                        scrollRole: ScrollRole.None
                         snapMode: SnapMode.LeadingEdge
                         layout: StackListLayout {
@@ -104,8 +104,8 @@ TabbedPane {
                         }
                         flickMode: FlickMode.Momentum
                         scrollIndicatorMode: ScrollIndicatorMode.None
-//                        leftPadding: 8
-//                        rightPadding: 8
+                        //                        leftPadding: 8
+                        //                        rightPadding: 8
                         listItemComponents: [
                             ListItemComponent {
                                 type: 'item'
@@ -153,60 +153,61 @@ TabbedPane {
                     ]
                     accessibility.name: "TODO: Add property content"
 
-                        }
-    
-                    }
+                }
+
             }
+        }
     } //End of first tab
     Tab {
         title: qsTr("Star") + Retranslate.onLocaleOrLanguageChanged
         imageSource: "asset:///images/menuicon/icon_star.png"
         Page {
             Container {
-                layout: DockLayout {}
+                layout: DockLayout {
+                }
                 Container {
                     horizontalAlignment: HorizontalAlignment.Fill
                     verticalAlignment: VerticalAlignment.Fill
-                    
+
                     leftPadding: ui.du(3.3)
                     topPadding: ui.du(3.3)
                     rightPadding: ui.du(3.3)
                     bottomPadding: ui.du(3.3)
-                    
+
                     //! [0]
                     // The event list filter input
                     SegmentedControl {
                         id: mainSC
                         Option {
-                            text: qsTr ("All")
+                            text: qsTr("All")
                             value: "all"
                             selected: true
                             onSelectedChanged: {
                             }
                         }
-                        
+
                         Option {
-                            text: qsTr ("HS")
+                            text: qsTr("HS")
                             value: "hs"
                             onSelectedChanged: {
                             }
                         }
-                        
+
                         Option {
-                            text: qsTr ("HK")
+                            text: qsTr("HK")
                             value: "hk"
                             onSelectedChanged: {
                             }
                         }
-                        
+
                         Option {
-                            text: qsTr ("USA")
+                            text: qsTr("USA")
                             value: "usa"
                             onSelectedChanged: {
-                            
+
                             }
                         }
-                        
+
                         onSelectedIndexChanged: {
                             // _calendar.filter = selectedValue
                         }
@@ -215,7 +216,7 @@ TabbedPane {
                     // The list view with all events
                     ListView {
                         dataModel: theStarItemsModel
-                        
+
                         listItemComponents: [
                             ListItemComponent {
                                 type: "header"
@@ -251,18 +252,18 @@ TabbedPane {
                             },
                             ListItemComponent {
                                 type: "item"
-                                
+
                                 Container {
-                                    
+
                                     topMargin: ui.du(1.0)
                                     leftMargin: ui.du(1.0)
                                     rightMargin: ui.du(1.0)
                                     bottomMargin: ui.du(1.0)
-                                    
+
                                     layout: StackLayout {
                                         orientation: LayoutOrientation.LeftToRight
                                     }
-                                    
+
                                     Container {
                                         layoutProperties: StackLayoutProperties {
                                             spaceQuota: 5
@@ -276,7 +277,7 @@ TabbedPane {
                                     Container {
                                         horizontalAlignment: HorizontalAlignment.Center
                                         verticalAlignment: VerticalAlignment.Center
-                                        
+
                                         layoutProperties: StackLayoutProperties {
                                             spaceQuota: 2
                                         }
@@ -287,21 +288,27 @@ TabbedPane {
                                     Container {
                                         horizontalAlignment: HorizontalAlignment.Right
                                         verticalAlignment: VerticalAlignment.Center
-                                        background: parseFloat(ListItemData.nowPri) > parseFloat(ListItemData.yestodEndPri) ? Color.Red:Color.Green
-                                        
+                                        background: parseFloat(ListItemData.nowPri) > parseFloat(ListItemData.yestodEndPri) ? Color.Red : Color.Green
+
                                         layoutProperties: StackLayoutProperties {
                                             spaceQuota: 2
                                         }
                                         Label {
-                                            text: ListItemData.nowPic  + "%"
+                                            text: ListItemData.nowPic + "%"
                                         }
                                     }
-                                    
                                 }
                             }
                         ]
                         onTriggered: {
+                            var selected = theStarItemsModel.data(indexPath);
+                            console.log(selected.name);
                             var StPage = stockPage.createObject(_app);
+                            StPage.name = selected.name;
+                            StPage.nowPri = selected.nowPri;
+                            StPage.nowPic = selected.nowPic;
+                            StPage.rate = selected.rate;
+                            StPage.yestodEndPri = selected.yestodEndPri;
                             StPage.open();
                         }
                     }
@@ -333,35 +340,36 @@ TabbedPane {
         imageSource: "asset:///images/menuicon/icon_trans.png"
         Page {
             Container {
-                layout: DockLayout {}
+                layout: DockLayout {
+                }
                 Container {
                     horizontalAlignment: HorizontalAlignment.Fill
                     verticalAlignment: VerticalAlignment.Fill
-                    
+
                     leftPadding: ui.du(3.3)
                     topPadding: ui.du(3.3)
                     rightPadding: ui.du(3.3)
                     bottomPadding: ui.du(3.3)
-                    
+
                     //! [0]
                     // The event list filter input
                     SegmentedControl {
                         id: trans
                         Option {
-                            text: qsTr ("实盘")
+                            text: qsTr("实盘")
                             value: "all"
                             selected: true
                             onSelectedChanged: {
                             }
                         }
-                        
+
                         Option {
-                            text: qsTr ("模拟")
+                            text: qsTr("模拟")
                             value: "hs"
                             onSelectedChanged: {
                             }
                         }
-                        
+
                         onSelectedIndexChanged: {
                             // _calendar.filter = selectedValue
                         }
@@ -392,46 +400,75 @@ TabbedPane {
             ]
         }
     } //End of third tab
-    
+
     onCreationCompleted: {
-//        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
-//        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
-//        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
-        
-        console.log("ekselog: onCreationCompleted");
+        //        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
+        //        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
+        //        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
+
         _nao.starReturned.connect(appendStarItemData);
-//        _nao.getdata();
-        console.log("ekselog: _nao.getdata() Completed");
         _nao.keyReturned.connect(appendKeyItemData);
-        console.log("ekselog: _nao.getKeyItems() Completed");
     }
-    
-    function appendStarItemData(success, resp){
+
+    function appendStarItemData(success, resp) {
         if (success) {
             var keyItemObj = JSON.parse(resp);
             if (keyItemObj.reason == "SUCCESSED!") {
                 var yestodEndPri = keyItemObj.result[0].data.yestodEndPri;
                 var nowPri = keyItemObj.result[0].data.nowPri;
                 var gid = keyItemObj.result[0].data.gid;
-                
+                var sellFive = keyItemObj.result[0].data.sellFive;
+                var sellFivePri = keyItemObj.result[0].data.sellFivePri;
+                var sellFour = keyItemObj.result[0].data.sellFour;
+                var sellFourPri = keyItemObj.result[0].data.sellFourPri;
+                var sellThree = keyItemObj.result[0].data.sellThree;
+                var sellThreePri = keyItemObj.result[0].data.sellThreePri;
+                var sellTwo = keyItemObj.result[0].data.sellTwo;
+                var sellTwoPri = keyItemObj.result[0].data.sellTwoPri;
+                var sellOne = keyItemObj.result[0].data.sellOne;
+                var sellOnePri = keyItemObj.result[0].data.sellOnePri;
+                var buyFive = keyItemObj.result[0].data.buyFive;
+                var buyFivePri = keyItemObj.result[0].data.buyFivePri;
+                var buyFour = keyItemObj.result[0].data.buyFour;
+                var buyFourPri = keyItemObj.result[0].data.buyFourPri;
+                var buyThree = keyItemObj.result[0].data.buyThree;
+                var buyThreePri = keyItemObj.result[0].data.buyThreePri;
+                var buyTwo = keyItemObj.result[0].data.buyTwo;
+                var buyTwoPri = keyItemObj.result[0].data.buyTwoPri;
+                var buyOne = keyItemObj.result[0].data.buyOne;
+                var buyOnePri = keyItemObj.result[0].data.buyOnePri;
+                var todayMax = keyItemObj.result[0].data.todayMax;
+                var todayMin = keyItemObj.result[0].data.todayMin;
+                var todayStartPri = keyItemObj.result[0].data.todayStartPri;
                 var name = keyItemObj.result[0].dapandata.name;
                 var nowPic = keyItemObj.result[0].dapandata.nowPic;
                 var dot = keyItemObj.result[0].dapandata.dot;
                 var rate = keyItemObj.result[0].dapandata.rate;
-                
-                theStarItemsModel.insert({"gid": gid, "name":name, "nowPic": nowPic, "dot": dot, "rate": rate, "yestodEndPri": yestodEndPri, "nowPri": nowPri});
+                var dict = {
+                     "gid": gid, "dot": dot, "name": name,
+                     "rate": rate, "nowPic": nowPic, "yestodEndPri": yestodEndPri, 
+                     "nowPri": nowPri, "sellFive": sellFive, "sellFivePri": sellFivePri, 
+                     "sellFour": sellFour, "sellFourPri": sellFourPri, "sellThree": sellThree, 
+                     "sellThreePri": sellThreePri, "sellTwo": sellTwo, "sellTwoPri": sellTwoPri, 
+                     "sellOne": sellOne, "sellOnePri": sellOnePri, "buyFive": buyFive, 
+                     "buyFivePri": buyFivePri, "buyFour": buyFour, "buyFourPri": buyFourPri, 
+                     "buyThree": buyThree, "buyThreePri": buyThreePri, "buyTwo": buyTwo, 
+                     "buyTwoPri": buyTwoPri, "buyOne": buyOne, "buyOnePri": buyOnePri, 
+                     "todayMax": todayMax, "todayMin": todayMin, "todayStartPri": todayStartPri
+                     };
+                theStarItemsModel.insert(dict);
             }
         }
     }
-    
-    function appendKeyItemData(success, resp){
+
+    function appendKeyItemData(success, resp) {
         if (success) {
             var keyItemObj = JSON.parse(resp);
             if (keyItemObj.reason == "SUCCESSED!") {
                 var yestodEndPri = keyItemObj.result[0].data.yestodEndPri;
                 var nowPri = keyItemObj.result[0].data.nowPri;
                 var gid = keyItemObj.result[0].data.gid;
-                
+
                 var name = keyItemObj.result[0].dapandata.name;
                 var nowPic = keyItemObj.result[0].dapandata.nowPic;
                 var dot = keyItemObj.result[0].dapandata.dot;
