@@ -43,6 +43,7 @@ void Nao::loadJsonData(QFile& jsonFile)
     const QString doc = QString::fromUtf8(jsonFile.readAll());
     //qDebug() << "loadJsonData:" << doc ;
     setJsonData(doc);
+    jsonFile.close();
 }
 
 void Nao::setJsonData(const QString& data)
@@ -125,6 +126,30 @@ void Nao::onGetReply()
     emit starReturned(true, QString::fromUtf8(buffer));
     disconnect(mReply);
     mReply->deleteLater();
+}
+
+void Nao::starStock(QString gid, QString place, bool status){
+    // 加载原始数据
+    qDebug() << "starStock 0";
+    JsonDataAccess jda;
+    QVariant qtData = jda.loadFromBuffer(mJsonData);
+    QVariantMap qtmap = qtData.toList()[0].toMap();
+
+    qDebug() << "starStock 1";
+    if(status == false){
+
+        qDebug() << "starStock 2";
+        qtmap["bookmark"].toMap()[place].toList().removeOne(gid);
+    }
+    else{
+        qtmap["bookmark"].toMap()[place].toList().append(gid);
+    }
+    // 打开stocks.json文件写入
+    QString assetpath = assetPath("stocks.json");
+    mAccessManager = new QNetworkAccessManager(this);
+    QFile jsonFile(assetpath);
+    jsonFile.write(qtData.toByteArray());
+    jsonFile.close();
 }
 
 bb::cascades::GroupDataModel* Nao::model() const

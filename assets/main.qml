@@ -304,6 +304,7 @@ TabbedPane {
                             var selected = theStarItemsModel.data(indexPath);
                             console.log(selected.name);
                             var StPage = stockPage.createObject(_app);
+                            StPage.gid = selected.gid;
                             StPage.name = selected.name;
                             StPage.nowPri = selected.nowPri;
                             StPage.nowPic = selected.nowPic;
@@ -318,7 +319,7 @@ TabbedPane {
                             StPage.weekurl = selected.weekurl;
                             StPage.dayurl = selected.dayurl;
                             StPage.minurl = selected.minurl;
-                            StPage.stared = "true";
+                            StPage.stared = true;
                             
                             StPage.open();
                         }

@@ -43,7 +43,7 @@ Sheet {
     property string gid: ""
     property string nowPri: ""
     
-    property string stared: ""
+    property bool stared: false
     content: Page {
         titleBar: TitleBar {
             title: name
@@ -88,10 +88,25 @@ Sheet {
                     Container {
                         horizontalAlignment: HorizontalAlignment.Center
                         verticalAlignment: VerticalAlignment.Center
-                        ImageToggleButton {
-                            id: starimagetogglebutton
-                            imageSourceDefault: stared?"asset:///images/menuicon/icon_stared.png":"asset:///images/menuicon/icon_star_side.png"
-                            imageSourceChecked: stared?"asset:///images/menuicon/icon_star_side.png":"asset:///images/menuicon/icon_stared.png"
+                        ImageButton {
+                            id: starimagebutton
+                            defaultImageSource: stared?"asset:///images/menuicon/icon_stared.png":"asset:///images/menuicon/icon_star_side.png"
+                            onClicked: {
+                                console.log("on checked changed!");
+                                if (stared){
+                                    console.log("on checked changed! true");
+                                    stared = false;
+                                    var place = "";
+                                    console.log("gggggiiiiiddddd:" + gid + "gidgidgid");
+                                    console.log(gid.indexOf('sz'));
+                                    if(gid.indexOf('sz') == 0 || gid.indexOf('sh') == 0)
+                                        _nao.starStock(gid, 'HS', false);
+                                }
+                                else{
+                                    console.log("on checked changed! false");
+                                    stared = true;
+                                }
+                            }
                         }
                     }
                 }

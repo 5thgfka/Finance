@@ -34,6 +34,7 @@ public:
 public Q_SLOTS:
     void getdata();
     void getKeyItems();
+    void starStock(QString gid, QString place, bool status);
 
 private slots:
     /**
