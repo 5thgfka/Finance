@@ -223,6 +223,7 @@ Sheet {
                             value: "today"
                             selected: true
                             onSelectedChanged: {
+                                wiv.url = minurl
                             }
                         }
                         
@@ -230,6 +231,7 @@ Sheet {
                             text: qsTr("»’K")
                             value: "dk"
                             onSelectedChanged: {
+                                wiv.url = dayurl
                             }
                         }
                         
@@ -237,6 +239,7 @@ Sheet {
                             text: qsTr("÷‹K")
                             value: "wk"
                             onSelectedChanged: {
+                                wiv.url = weekurl
                             }
                         }
                         
@@ -244,6 +247,7 @@ Sheet {
                             text: qsTr("‘¬K")
                             value: "mk"
                             onSelectedChanged: {
+                                wiv.url = monthurl
                             }
                         }
                         
@@ -252,6 +256,7 @@ Sheet {
                         }
                     }
                     WebImageView {
+                        id: wiv
                         horizontalAlignment: HorizontalAlignment.Fill
                         url: minurl
                     }
@@ -263,7 +268,6 @@ Sheet {
         ComponentDefinition {
             id: graph
             WebImageView {
-                id: wiv
                 scalingMethod: ScalingMethod.AspectFit
                 horizontalAlignment: HorizontalAlignment.Center
                 implicitLayoutAnimationsEnabled: false
