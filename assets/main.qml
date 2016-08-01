@@ -318,6 +318,7 @@ TabbedPane {
                             StPage.weekurl = selected.weekurl;
                             StPage.dayurl = selected.dayurl;
                             StPage.minurl = selected.minurl;
+                            StPage.stared = "true";
                             
                             StPage.open();
                         }

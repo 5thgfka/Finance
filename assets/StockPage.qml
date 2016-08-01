@@ -42,7 +42,8 @@ Sheet {
 
     property string gid: ""
     property string nowPri: ""
-
+    
+    property string stared: ""
     content: Page {
         titleBar: TitleBar {
             title: name
@@ -82,6 +83,15 @@ Sheet {
                         Label {
                             text: parseFloat(rate) < 0 ? rate + "%" : "+" + rate + "%"
                             textStyle.color: parseFloat(yestodEndPri) > parseFloat(nowPri) ? Color.Green : Color.Red
+                        }
+                    }
+                    Container {
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                        ImageToggleButton {
+                            id: starimagetogglebutton
+                            imageSourceDefault: stared?"asset:///images/menuicon/icon_stared.png":"asset:///images/menuicon/icon_star_side.png"
+                            imageSourceChecked: stared?"asset:///images/menuicon/icon_star_side.png":"asset:///images/menuicon/icon_stared.png"
                         }
                     }
                 }
