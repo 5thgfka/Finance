@@ -99,11 +99,13 @@ Sheet {
                                     var place = "";
                                     console.log("gggggiiiiiddddd:" + gid + "gidgidgid");
                                     console.log(gid.indexOf('sz'));
+                                    console.log(gid.indexOf('sh'));
                                     if(gid.indexOf('sz') == 0 || gid.indexOf('sh') == 0)
-                                        _nao.starStock(gid, 'HS', false);
+                                        _nao.deleteRecord('bookmark', gid);
                                 }
                                 else{
                                     console.log("on checked changed! false");
+                                    _nao.insertRecord('bookmark', gid, 'HS');
                                     stared = true;
                                 }
                             }

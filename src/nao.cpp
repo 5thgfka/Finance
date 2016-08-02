@@ -10,11 +10,16 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QWaitCondition>
+#include <bb/data/SqlDataAccess>
+#include <bb/data/DataAccessError>
+#include <QtSql/QtSql>
 
 using namespace bb::data;
 using namespace bb::cascades;
 
 const QString hs_pre = "http://web.juhe.cn:8080/finance/stock/hs";
+const QString DB_PATH = "./data/bbFinance.db";
+SqlDataAccess *sqlda = new SqlDataAccess(DB_PATH);
 
 static QString assetPath(const QString& assetName)
 {
@@ -31,6 +36,73 @@ Nao::Nao(QObject* parent): QObject(parent), m_model(new GroupDataModel(this)), m
     loadJsonData(jsonFile);
 }
 
+bool Nao::initDatabase(){
+    QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName(DB_PATH);
+
+    const QString createSQL_bookmark = "CREATE TABLE IF NOT EXISTS bookmark "
+                              "  (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                              "  type VARCHAR, "
+                              "  gid VARCHAR);";
+    sqlda->execute(createSQL_bookmark);
+    if(!sqlda->hasError()) {
+        qDebug() << "Table created.";
+    } else {
+        const DataAccessError error = sqlda->error();
+        qDebug() << error.errorMessage();
+        return false;
+    }
+    const QString createSQL_home = "CREATE TABLE IF NOT EXISTS home "
+                                      "  (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                      "  name VARCHAR, "
+                                      "  gid VARCHAR);";
+    sqlda->execute(createSQL_home);
+    if(!sqlda->hasError()) {
+        qDebug() << "Table created.";
+    } else {
+        const DataAccessError error = sqlda->error();
+        qDebug() << error.errorMessage();
+        return false;
+    }
+
+    return true;
+}
+
+bool Nao::initTableData() {
+    // bookmark
+    const QString sqlQuery_bookmark = "SELECT gid FROM bookmark";
+    QVariant result = sqlda->execute(sqlQuery_bookmark);
+    QVariantList list = result.value<QVariantList>();
+    int recordsRead = 0;
+    recordsRead = list.size();
+    if(recordsRead == 0){
+        sqlda->execute("INSERT INTO bookmark (type, gid) VALUES ('HS', 'sz002310')");
+        sqlda->execute("INSERT INTO bookmark (type, gid) VALUES ('HS', 'sh601111')");
+        sqlda->execute("INSERT INTO bookmark (type, gid) VALUES ('HS', 'sh601985')");
+    }
+    // home
+    const QString sqlQuery_home = "SELECT gid FROM bookmark";
+    result = sqlda->execute(sqlQuery_home);
+    list = result.value<QVariantList>();
+    recordsRead = list.size();
+    if(recordsRead == 0){
+        sqlda->execute("INSERT INTO home (name, gid) VALUES ('sh', 'sh000001')");
+        sqlda->execute("INSERT INTO home (name, gid) VALUES ('sz', 'sz399001')");
+        sqlda->execute("INSERT INTO home (name, gid) VALUES ('cy', 'sz399006')");
+    }
+
+    return true;
+}
+
+bool Nao::insertRecord(const QString &table, const QString &key, const QString &type){
+    sqlda->execute("INSERT INTO " + table + " (type, gid) VALUES ('" + type + "', '"+key+"')");
+    return true;
+}
+
+bool Nao::deleteRecord(const QString &table, const QString &key){
+    sqlda->execute("DELETE FROM " + table + " WHERE gid='" + key + "'");
+    return true;
+}
 
 void Nao::loadJsonData(QFile& jsonFile)
 {
@@ -70,25 +142,41 @@ void Nao::getRateOfSpecifiy(const QString& code)
 
 
 void Nao::getKeyItems(){
-
-    getRateOfSpecifiy("sh000001");
-    getRateOfSpecifiy("sz399001");
-    getRateOfSpecifiy("sz399006");
+    const QString sqlQuery = "SELECT gid FROM home";
+    QVariant result = sqlda->execute(sqlQuery);
+    QVariantList list = result.value<QVariantList>();
+    int recordsRead = 0;
+    recordsRead = list.size();
+    for(int i = 0; i < recordsRead; i++) {
+        QVariantMap map = list.at(i).value<QVariantMap>();
+        QString gid = map["gid"].toString();
+        getRateOfSpecifiy(gid);
+    }
+//    getRateOfSpecifiy("sh000001");
+//    getRateOfSpecifiy("sz399001");
+//    getRateOfSpecifiy("sz399006");
 
 }
 
 
 void Nao::getdata()
 {
-    JsonDataAccess jda;
-    QVariant qtData = jda.loadFromBuffer(mJsonData);
-    QVariantMap qtmap = qtData.toList()[0].toMap();
-    QVariantList stocklist = qtmap["bookmark"].toMap()["HS"].toList();
+//    JsonDataAccess jda;
+//    QVariant qtData = jda.loadFromBuffer(mJsonData);
+//    QVariantMap qtmap = qtData.toList()[0].toMap();
+//    QVariantList stocklist = qtmap["bookmark"].toMap()["HS"].toList();
+    const QString sqlQuery = "SELECT gid FROM bookmark";
+    QVariant result = sqlda->execute(sqlQuery);
+    QVariantList list = result.value<QVariantList>();
+    int recordsRead = 0;
+    recordsRead = list.size();
 
-    foreach(QVariant stock, stocklist){
+    for(int i = 0; i < recordsRead; i++) {
+        QVariantMap map = list.at(i).value<QVariantMap>();
+        QString stockStr = map["gid"].toString();
         // The network parameters; used for accessing a file from the Internet
         QNetworkReply *mReply;
-        QString stockStr = stock.toString();
+//        QString stockStr = stock.toString();
         QString path = hs_pre + "?gid=" + stockStr + "&type=&key=";
         qDebug() << "Loading path:" << path ;
         // Connect to the reply finished signal to httpFinsihed() Slot function.
@@ -129,26 +217,31 @@ void Nao::onGetReply()
 }
 
 void Nao::starStock(QString gid, QString place, bool status){
-    // 加载原始数据
     qDebug() << "starStock 0";
     JsonDataAccess jda;
     QVariant qtData = jda.loadFromBuffer(mJsonData);
+    qDebug() << qtData;
     QVariantMap qtmap = qtData.toList()[0].toMap();
-
+    qDebug() << mJsonData;
     qDebug() << "starStock 1";
     if(status == false){
-
         qDebug() << "starStock 2";
-        qtmap["bookmark"].toMap()[place].toList().removeOne(gid);
+        qDebug() << place;
+        qDebug() << gid;
+        qtData.toList()[0].toMap()["bookmark"].toMap()[place].toList().removeOne(gid);
     }
     else{
-        qtmap["bookmark"].toMap()[place].toList().append(gid);
+        qtData.toList()[0].toMap()["bookmark"].toMap()[place].toList().append(gid);
     }
-    // 打开stocks.json文件写入
     QString assetpath = assetPath("stocks.json");
     mAccessManager = new QNetworkAccessManager(this);
+    qDebug() << qtData;
     QFile jsonFile(assetpath);
-    jsonFile.write(qtData.toByteArray());
+    JsonDataAccess jda_write(&jsonFile);
+    jda_write.save(qtData, &jsonFile);
+//    jsonFile.open(QIODevice::ReadWrite);
+//    jsonFile.write(qtData.toByteArray());
+//    qDebug() << qtData.toByteArray();
     jsonFile.close();
 }
 

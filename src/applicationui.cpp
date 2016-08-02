@@ -50,6 +50,10 @@ ApplicationUI::ApplicationUI() :
 
     // Create root object for the UI
     Nao* nao = new Nao(this);
+
+    nao->initDatabase();
+    nao->initTableData();
+
     qDebug() << "application ui.cpp start";
     nao->getdata();
     nao->getKeyItems();
