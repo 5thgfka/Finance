@@ -42,7 +42,7 @@ Sheet {
 
     property string gid: ""
     property string nowPri: ""
-    
+
     property bool stared: false
     content: Page {
         titleBar: TitleBar {
@@ -58,60 +58,56 @@ Sheet {
         ScrollView {
             Container {
                 Container {
-                    leftPadding: ui.du(2)
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    }
                     Container {
-                        horizontalAlignment: HorizontalAlignment.Center
-                        verticalAlignment: VerticalAlignment.Center
-                        Label {
-                            text: nowPri
-                            textStyle.color: parseFloat(yestodEndPri) > parseFloat(nowPri) ? Color.Green : Color.Red
-                            textStyle.fontSize: FontSize.Large
-                        }
-                    }
-                    Container {
-                        leftPadding: ui.du(1)
+                        leftPadding: ui.du(2)
                         layout: StackLayout {
-                            orientation: LayoutOrientation.TopToBottom
+                            orientation: LayoutOrientation.LeftToRight
                         }
-                        Label {
-                            text: parseFloat(nowPic) < 0 ? nowPic: "+" + nowPic
-                            textStyle.color: parseFloat(yestodEndPri) > parseFloat(nowPri) ? Color.Green : Color.Red
+                        Container {
+                            horizontalAlignment: HorizontalAlignment.Center
+                            verticalAlignment: VerticalAlignment.Center
+                            Label {
+                                text: nowPri
+                                textStyle.color: parseFloat(yestodEndPri) > parseFloat(nowPri) ? Color.Green : Color.Red
+                                textStyle.fontSize: FontSize.Large
+                            }
                         }
-                        Label {
-                            text: parseFloat(rate) < 0 ? rate + "%" : "+" + rate + "%"
-                            textStyle.color: parseFloat(yestodEndPri) > parseFloat(nowPri) ? Color.Green : Color.Red
+                        Container {
+                            leftPadding: ui.du(1)
+                            layout: StackLayout {
+                                orientation: LayoutOrientation.TopToBottom
+                            }
+                            Label {
+                                text: parseFloat(nowPic) < 0 ? nowPic : "+" + nowPic
+                                textStyle.color: parseFloat(yestodEndPri) > parseFloat(nowPri) ? Color.Green : Color.Red
+                            }
+                            Label {
+                                text: parseFloat(rate) < 0 ? rate + "%" : "+" + rate + "%"
+                                textStyle.color: parseFloat(yestodEndPri) > parseFloat(nowPri) ? Color.Green : Color.Red
+                            }
                         }
-                    }
-                    Container {
-                        horizontalAlignment: HorizontalAlignment.Center
-                        verticalAlignment: VerticalAlignment.Center
-                        ImageButton {
-                            id: starimagebutton
-                            defaultImageSource: stared?"asset:///images/menuicon/icon_stared.png":"asset:///images/menuicon/icon_star_side.png"
-                            onClicked: {
-                                console.log("on checked changed!");
-                                if (stared){
-                                    console.log("on checked changed! true");
-                                    stared = false;
-                                    var place = "";
-                                    console.log("gggggiiiiiddddd:" + gid + "gidgidgid");
-                                    console.log(gid.indexOf('sz'));
-                                    console.log(gid.indexOf('sh'));
-                                    if(gid.indexOf('sz') == 0 || gid.indexOf('sh') == 0)
-                                        _nao.deleteRecord('bookmark', gid);
-                                }
-                                else{
-                                    console.log("on checked changed! false");
-                                    _nao.insertRecord('bookmark', gid, 'HS');
-                                    stared = true;
+                        Container {
+                            horizontalAlignment: HorizontalAlignment.Center
+                            verticalAlignment: VerticalAlignment.Center
+                            ImageButton {
+                                id: starimagebutton
+                                defaultImageSource: stared ? "asset:///images/menuicon/icon_stared.png" : "asset:///images/menuicon/icon_star_side.png"
+                                onClicked: {
+                                    if (stared) {
+                                        stared = false;
+                                        var place = "";
+                                        if (gid.indexOf('sz') == 0 || gid.indexOf('sh') == 0)
+                                            _nao.deleteRecord('bookmark', gid);
+                                    } else {
+                                        _nao.insertRecord('bookmark', gid, 'HS');
+                                        stared = true;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
                 Divider {
                 }
                 Container {
@@ -243,6 +239,7 @@ Sheet {
                 Divider {
                 }
                 Container {
+                    leftPadding: ui.du(1.5)
                     SegmentedControl {
                         id: trans
                         Option {
@@ -253,7 +250,7 @@ Sheet {
                                 wiv.url = minurl
                             }
                         }
-                        
+
                         Option {
                             text: qsTr("»’K")
                             value: "dk"
@@ -261,7 +258,7 @@ Sheet {
                                 wiv.url = dayurl
                             }
                         }
-                        
+
                         Option {
                             text: qsTr("÷‹K")
                             value: "wk"
@@ -269,7 +266,7 @@ Sheet {
                                 wiv.url = weekurl
                             }
                         }
-                        
+
                         Option {
                             text: qsTr("‘¬K")
                             value: "mk"
@@ -277,7 +274,7 @@ Sheet {
                                 wiv.url = monthurl
                             }
                         }
-                        
+
                         onSelectedIndexChanged: {
                             // _calendar.filter = selectedValue
                         }
