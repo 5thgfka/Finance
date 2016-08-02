@@ -31,6 +31,14 @@ public:
     Q_SIGNAL void keyReturned(bool success,QString resp);
     Q_SIGNAL void starReturned(bool success,QString resp);
 
+    // Database
+    Q_INVOKABLE bool insertRecord(const QString &table, const QString &key, const QString &type);
+    Q_INVOKABLE bool deleteRecord(const QString &table, const QString &key);
+
+    // Database
+    bool initDatabase();
+    bool initTableData();
+
 public Q_SLOTS:
     void getdata();
     void getKeyItems();
