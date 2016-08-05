@@ -67,11 +67,12 @@ bool Nao::initTableData() {
     recordsRead = list.size();
     if(recordsRead == 0){
         sqlda->execute("INSERT INTO bookmark (type, gid) VALUES ('HS', 'sz002310')");
-        sqlda->execute("INSERT INTO bookmark (type, gid) VALUES ('HS', 'sh601111')");
+        sqlda->execute("INSERT INTO bookmark (type, gid) VALUES ('HS', 'sh600919')");
         sqlda->execute("INSERT INTO bookmark (type, gid) VALUES ('HS', 'sh601985')");
+        sqlda->execute("INSERT INTO bookmark (type, gid) VALUES ('HS', 'sh600029')");
     }
     // home
-    const QString sqlQuery_home = "SELECT gid FROM bookmark";
+    const QString sqlQuery_home = "SELECT gid FROM home";
     result = sqlda->execute(sqlQuery_home);
     list = result.value<QVariantList>();
     recordsRead = list.size();
