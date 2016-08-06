@@ -244,39 +244,27 @@ Sheet {
                         id: trans
                         Option {
                             text: qsTr("分时")
-                            value: "today"
+                            value: minurl
                             selected: true
-                            onSelectedChanged: {
-                                wiv.url = minurl
-                            }
                         }
 
                         Option {
                             text: qsTr("日K")
-                            value: "dk"
-                            onSelectedChanged: {
-                                wiv.url = dayurl
-                            }
+                            value: dayurl
                         }
 
                         Option {
                             text: qsTr("周K")
-                            value: "wk"
-                            onSelectedChanged: {
-                                wiv.url = weekurl
-                            }
+                            value: weekurl
                         }
 
                         Option {
                             text: qsTr("月K")
-                            value: "mk"
-                            onSelectedChanged: {
-                                wiv.url = monthurl
-                            }
+                            value: monthurl
                         }
 
                         onSelectedIndexChanged: {
-                            // _calendar.filter = selectedValue
+                            wiv.url = selectedValue
                         }
                     }
                     WebImageView {
