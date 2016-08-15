@@ -20,6 +20,7 @@ import bb.system 1.2
 TabbedPane {
     showTabsOnActionBar: true
     Tab {
+        id: home_tab
         // Localized text with the dynamic translation and locale updates support
         title: qsTr("Home") + Retranslate.onLocaleOrLanguageChanged
         imageSource: "asset:///images/menuicon/icon_index.png"
@@ -159,6 +160,7 @@ TabbedPane {
         }
     } //End of first tab
     Tab {
+        id: star_tab
         title: qsTr("Star") + Retranslate.onLocaleOrLanguageChanged
         imageSource: "asset:///images/menuicon/icon_star.png"
         Page {
@@ -342,12 +344,11 @@ TabbedPane {
         }
     } //End of second tab
     Tab {
+        id: transaction_tab
         title: qsTr("transaction") + Retranslate.onLocaleOrLanguageChanged
         imageSource: "asset:///images/menuicon/icon_trans.png"
         Page {
             Container {
-                layout: DockLayout {
-                }
                 Container {
                     horizontalAlignment: HorizontalAlignment.Fill
                     verticalAlignment: VerticalAlignment.Fill
@@ -381,19 +382,24 @@ TabbedPane {
                         }
                     }
                     Container {
+                        background: Color.DarkCyan
                         Header {
                             title: "总市值"
                         }
                         Container {
+                            topPadding: ui.du(2)
                             layout: StackLayout {
                                 orientation: LayoutOrientation.LeftToRight
                             }
                             Container {
                                 preferredHeight: ui.du(8)
+                                rightPadding: ui.du(1)
                                 horizontalAlignment: HorizontalAlignment.Fill
                                 verticalAlignment: VerticalAlignment.Center
                                 Label {
                                     preferredHeight: ui.du(8)
+                                    textStyle.fontSize: FontSize.Large
+                                    textStyle.color: Color.White
                                     text: '6710.00'
                                 }
                             }
@@ -404,11 +410,13 @@ TabbedPane {
                                 Container {
                                     Label {
                                         text: '日盈亏'
+                                        textStyle.color: Color.White
                                     }
                                 }
                                 Container {
                                     Label {
                                         text: '155.00'
+                                        textStyle.color: Color.White
                                     }
                                 }
                             }
@@ -418,21 +426,25 @@ TabbedPane {
                             layout: StackLayout {
                                 orientation: LayoutOrientation.LeftToRight
                             }
+                            topPadding: ui.du(2)
                             //浮盈
                             Container {
                                 layout: StackLayout {
                                     orientation: LayoutOrientation.TopToBottom
                                 }
+                                rightPadding: ui.du(5)
                                 Container {
                                     Label {
                                         text: '浮动盈亏'
                                         textStyle.fontSize: FontSize.XSmall
+                                        textStyle.color: Color.White
                                     }
                                 }
                                 Container {
                                     Label {
                                         text: '1311.99'
-                                        textStyle.fontSize: FontSize.Large
+                                        textStyle.fontSize: FontSize.Medium
+                                        textStyle.color: Color.White
                                     }
                                 }
                             }
@@ -445,15 +457,155 @@ TabbedPane {
                                     Label {
                                         text: '浮动盈亏率'
                                         textStyle.fontSize: FontSize.XSmall
+                                        textStyle.color: Color.White
                                     }
                                 }
                                 Container {
                                     Label {
                                         text: '24.30%'
-                                        textStyle.fontSize: FontSize.Large
+                                        textStyle.fontSize: FontSize.Medium
+                                        textStyle.color: Color.White
                                     }
                                 }
                             }
+                        }
+                    }
+                    //列表
+                    Container {
+                        ListView {
+                            dataModel: simulateModel
+                            
+                            listItemComponents: [
+                                ListItemComponent {
+                                    type: 'header'
+                                    Container {
+                                        background: Color.Red
+                                        layout: StackLayout {
+                                            orientation: LayoutOrientation.LeftToRight
+                                        }
+                                        Label {
+                                            layoutProperties: StackLayoutProperties {
+                                                spaceQuota: 5
+                                            }
+                                            text: '股票名称'
+                                            horizontalAlignment: HorizontalAlignment.Right
+                                            verticalAlignment: VerticalAlignment.Center
+                                        }
+                                        Label {
+                                            layoutProperties: StackLayoutProperties {
+                                                spaceQuota: 2
+                                            }
+                                            text: '市值/数量'
+                                            horizontalAlignment: HorizontalAlignment.Right
+                                            verticalAlignment: VerticalAlignment.Center
+                                        }
+                                        Label {
+                                            layoutProperties: StackLayoutProperties {
+                                                spaceQuota: 2
+                                            }
+                                            text: '现价/成本'
+                                            horizontalAlignment: HorizontalAlignment.Right
+                                            verticalAlignment: VerticalAlignment.Center
+                                        }
+                                        Label {
+                                            layoutProperties: StackLayoutProperties {
+                                                spaceQuota: 2
+                                            }
+                                            text: '浮动盈亏'
+                                            horizontalAlignment: HorizontalAlignment.Right
+                                            verticalAlignment: VerticalAlignment.Center
+                                        }
+                                    }
+                                },
+                                ListItemComponent {
+                                    type: 'item'
+                                    
+                                    Container {
+                                        
+                                        topMargin: ui.du(1.0)
+                                        leftMargin: ui.du(1.0)
+                                        rightMargin: ui.du(1.0)
+                                        bottomMargin: ui.du(1.0)
+                                        preferredHeight: ui.du(10)
+                                        background: Color.Gray
+                                        
+                                        layout: StackLayout {
+                                            orientation: LayoutOrientation.LeftToRight
+                                        }
+                                        
+                                        Container {
+                                            layout: StackLayout {
+                                                orientation: LayoutOrientation.TopToBottom
+                                            }
+                                            layoutProperties: StackLayoutProperties {
+                                                spaceQuota: 3
+                                            }
+                                            horizontalAlignment: HorizontalAlignment.Left
+                                            verticalAlignment: VerticalAlignment.Center
+                                            Label {
+                                                text: '东方园林'
+                                            }
+                                            Label {
+                                                text: '东方园林'
+                                            }
+                                        }
+                                        Container {
+                                            layout: StackLayout {
+                                                orientation: LayoutOrientation.TopToBottom
+                                            }
+                                            horizontalAlignment: HorizontalAlignment.Center
+                                            verticalAlignment: VerticalAlignment.Center
+                                            
+                                            layoutProperties: StackLayoutProperties {
+                                                spaceQuota: 2
+                                            }
+                                            Label {
+                                                text: '123'
+                                            }
+                                            Label {
+                                                text: '123'
+                                            }
+                                        }
+                                        Container {
+                                            layout: StackLayout {
+                                                orientation: LayoutOrientation.TopToBottom
+                                            }
+                                            horizontalAlignment: HorizontalAlignment.Center
+                                            verticalAlignment: VerticalAlignment.Center
+                                            
+                                            layoutProperties: StackLayoutProperties {
+                                                spaceQuota: 2
+                                            }
+                                            Label {
+                                                text: '123'
+                                            }
+                                            Label {
+                                                text: '123'
+                                            }
+                                        }
+                                        Container {
+                                            layout: StackLayout {
+                                                orientation: LayoutOrientation.TopToBottom
+                                            }
+                                            horizontalAlignment: HorizontalAlignment.Right
+                                            verticalAlignment: VerticalAlignment.Center
+                                            background: parseFloat(ListItemData.nowPri) > parseFloat(ListItemData.yestodEndPri) ? Color.Red : Color.Green
+                                            
+                                            layoutProperties: StackLayoutProperties {
+                                                spaceQuota: 2
+                                            }
+                                            Label {
+                                                text: '123'
+                                                horizontalAlignment: HorizontalAlignment.Right
+                                            }
+                                            Label {
+                                                text: '123'
+                                                horizontalAlignment: HorizontalAlignment.Right
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                     
@@ -588,6 +740,10 @@ TabbedPane {
         },
         GroupDataModel {
             id: theStarItemsBackModel
+            grouping: ItemGrouping.None
+        },
+        GroupDataModel {
+            id:simulateModel
             grouping: ItemGrouping.None
         }
     ]
