@@ -259,7 +259,9 @@ TabbedPane {
                                     leftMargin: ui.du(1.0)
                                     rightMargin: ui.du(1.0)
                                     bottomMargin: ui.du(1.0)
-
+                                    preferredHeight: ui.du(10)
+                                    background: Color.Gray
+                                    
                                     layout: StackLayout {
                                         orientation: LayoutOrientation.LeftToRight
                                     }
@@ -295,6 +297,7 @@ TabbedPane {
                                         }
                                         Label {
                                             text: parseFloat(ListItemData.nowPic) < 0 ? ListItemData.nowPic + "%": "+" + ListItemData.nowPic + "%"
+                                            horizontalAlignment: HorizontalAlignment.Right
                                         }
                                     }
                                 }
@@ -362,33 +365,107 @@ TabbedPane {
                     topPadding: ui.du(3.3)
                     rightPadding: ui.du(3.3)
                     bottomPadding: ui.du(3.3)
-
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.TopToBottom
+                    }
                     //! [0]
                     // The event list filter input
                     SegmentedControl {
                         id: trans
-                        Option {
-                            text: qsTr("实盘")
-                            value: "all"
-                            selected: true
-                            onSelectedChanged: {
-                            }
-                        }
+//                        Option {
+//                            text: qsTr("实盘")
+//                            value: "all"
+//                            selected: true
+//                            onSelectedChanged: {
+//                            }
+//                        }
 
                         Option {
                             text: qsTr("模拟")
-                            value: "hs"
-                            onSelectedChanged: {
-                            }
+                            value: "simulate"
                         }
 
                         onSelectedIndexChanged: {
                             // _calendar.filter = selectedValue
                         }
                     }
-                    Header {
-                        title: "总市值"
+                    Container {
+                        Header {
+                            title: "总市值"
+                        }
+                        Container {
+                            layout: StackLayout {
+                                orientation: LayoutOrientation.LeftToRight
+                            }
+                            Container {
+                                preferredHeight: ui.du(8)
+                                horizontalAlignment: HorizontalAlignment.Fill
+                                verticalAlignment: VerticalAlignment.Center
+                                Label {
+                                    preferredHeight: ui.du(8)
+                                    text: '6710.00'
+                                }
+                            }
+                            Container {
+                                layout: StackLayout {
+                                    orientation: LayoutOrientation.TopToBottom
+                                }
+                                Container {
+                                    Label {
+                                        text: '日盈亏'
+                                    }
+                                }
+                                Container {
+                                    Label {
+                                        text: '155.00'
+                                    }
+                                }
+                            }
+                        }
+                        //第二排
+                        Container {
+                            layout: StackLayout {
+                                orientation: LayoutOrientation.LeftToRight
+                            }
+                            //浮盈
+                            Container {
+                                layout: StackLayout {
+                                    orientation: LayoutOrientation.TopToBottom
+                                }
+                                Container {
+                                    Label {
+                                        text: '浮动盈亏'
+                                        textStyle.fontSize: FontSize.XSmall
+                                    }
+                                }
+                                Container {
+                                    Label {
+                                        text: '1311.99'
+                                        textStyle.fontSize: FontSize.Large
+                                    }
+                                }
+                            }
+                            //率
+                            Container {
+                                layout: StackLayout {
+                                    orientation: LayoutOrientation.TopToBottom
+                                }
+                                Container {
+                                    Label {
+                                        text: '浮动盈亏率'
+                                        textStyle.fontSize: FontSize.XSmall
+                                    }
+                                }
+                                Container {
+                                    Label {
+                                        text: '24.30%'
+                                        textStyle.fontSize: FontSize.Large
+                                    }
+                                }
+                            }
+                        }
                     }
+                    
                 }
             }
             actions: [
