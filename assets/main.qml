@@ -182,30 +182,21 @@ TabbedPane {
                             text: qsTr("All")
                             value: "all"
                             selected: true
-                            onSelectedChanged: {
-                            }
                         }
 
                         Option {
                             text: qsTr("HS")
                             value: "hs"
-                            onSelectedChanged: {
-                            }
                         }
 
                         Option {
                             text: qsTr("HK")
                             value: "hk"
-                            onSelectedChanged: {
-                            }
                         }
 
                         Option {
                             text: qsTr("USA")
                             value: "usa"
-                            onSelectedChanged: {
-
-                            }
                         }
 
                         onSelectedIndexChanged: {
@@ -494,7 +485,7 @@ TabbedPane {
         //        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
         //        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
         //        theModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
-
+//        theStarItemsModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
         _nao.starReturned.connect(appendStarItemData);
         _nao.keyReturned.connect(appendKeyItemData);
     }
@@ -557,6 +548,7 @@ TabbedPane {
                      "dayurl": dayurl, "weekurl": weekurl, "monthurl": monthurl
                      };
                 theStarItemsModel.insert(dict);
+                theStarItemsBackModel.insert(dict);
             }
         }
     }
@@ -592,6 +584,10 @@ TabbedPane {
         },
         GroupDataModel {
             id: theStarItemsModel
+            grouping: ItemGrouping.None
+        },
+        GroupDataModel {
+            id: theStarItemsBackModel
             grouping: ItemGrouping.None
         }
     ]
