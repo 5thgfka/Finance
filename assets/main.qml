@@ -472,51 +472,53 @@ TabbedPane {
                     }
                     //列表
                     Container {
+                        topPadding: ui.du(1)
+                        Container {
+                            layout: StackLayout {
+                                orientation: LayoutOrientation.LeftToRight
+                            }
+                            Label {
+                                layoutProperties: StackLayoutProperties {
+                                    spaceQuota: 3
+                                }
+                                text: '股票名称'
+                                horizontalAlignment: HorizontalAlignment.Right
+                                verticalAlignment: VerticalAlignment.Center
+                            }
+                            Label {
+                                layoutProperties: StackLayoutProperties {
+                                    spaceQuota: 3
+                                }
+                                text: '市值/数量'
+                                horizontalAlignment: HorizontalAlignment.Right
+                                verticalAlignment: VerticalAlignment.Center
+                            }
+                            Label {
+                                layoutProperties: StackLayoutProperties {
+                                    spaceQuota: 3
+                                }
+                                text: '现价/成本'
+                                horizontalAlignment: HorizontalAlignment.Right
+                                verticalAlignment: VerticalAlignment.Center
+                            }
+                            Label {
+                                layoutProperties: StackLayoutProperties {
+                                    spaceQuota: 3
+                                }
+                                text: '浮动盈亏'
+                                horizontalAlignment: HorizontalAlignment.Right
+                                verticalAlignment: VerticalAlignment.Center
+                            }
+                        }
                         ListView {
                             dataModel: simulateModel
+                            layout: StackListLayout {
+                                headerMode: ListHeaderMode.Sticky
+                            }
+                            horizontalAlignment: HorizontalAlignment.Fill
+                            verticalAlignment: VerticalAlignment.Fill
                             
                             listItemComponents: [
-                                ListItemComponent {
-                                    type: 'header'
-                                    Container {
-                                        background: Color.Red
-                                        layout: StackLayout {
-                                            orientation: LayoutOrientation.LeftToRight
-                                        }
-                                        Label {
-                                            layoutProperties: StackLayoutProperties {
-                                                spaceQuota: 5
-                                            }
-                                            text: '股票名称'
-                                            horizontalAlignment: HorizontalAlignment.Right
-                                            verticalAlignment: VerticalAlignment.Center
-                                        }
-                                        Label {
-                                            layoutProperties: StackLayoutProperties {
-                                                spaceQuota: 2
-                                            }
-                                            text: '市值/数量'
-                                            horizontalAlignment: HorizontalAlignment.Right
-                                            verticalAlignment: VerticalAlignment.Center
-                                        }
-                                        Label {
-                                            layoutProperties: StackLayoutProperties {
-                                                spaceQuota: 2
-                                            }
-                                            text: '现价/成本'
-                                            horizontalAlignment: HorizontalAlignment.Right
-                                            verticalAlignment: VerticalAlignment.Center
-                                        }
-                                        Label {
-                                            layoutProperties: StackLayoutProperties {
-                                                spaceQuota: 2
-                                            }
-                                            text: '浮动盈亏'
-                                            horizontalAlignment: HorizontalAlignment.Right
-                                            verticalAlignment: VerticalAlignment.Center
-                                        }
-                                    }
-                                },
                                 ListItemComponent {
                                     type: 'item'
                                     
