@@ -28,8 +28,9 @@ public:
     void loadJsonData(QFile& jsonFile);
     void getRateOfSpecifiy(const QString& code);
 
-    Q_SIGNAL void keyReturned(bool success,QString resp);
-    Q_SIGNAL void starReturned(bool success,QString resp);
+    Q_SIGNAL void keyReturned(bool success, QString resp);
+    Q_SIGNAL void starReturned(bool success, QString resp);
+    Q_SIGNAL void getSimulationData(QString resp);
 
     // Database
     Q_INVOKABLE bool insertRecord(const QString &table, const QString &key, const QString &type);
@@ -42,6 +43,7 @@ public:
 public Q_SLOTS:
     void getdata();
     void getKeyItems();
+    void getSimulateData();
 
 private slots:
     /**

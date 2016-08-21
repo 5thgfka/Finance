@@ -347,6 +347,12 @@ TabbedPane {
         id: transaction_tab
         title: qsTr("transaction") + Retranslate.onLocaleOrLanguageChanged
         imageSource: "asset:///images/menuicon/icon_trans.png"
+        
+        property string total
+        property string dayincome
+        property string income
+        property string rate
+        
         Page {
             Container {
                 Container {
@@ -400,7 +406,7 @@ TabbedPane {
                                     preferredHeight: ui.du(8)
                                     textStyle.fontSize: FontSize.Large
                                     textStyle.color: Color.White
-                                    text: '6710.00'
+                                    text: total
                                 }
                             }
                             Container {
@@ -415,7 +421,7 @@ TabbedPane {
                                 }
                                 Container {
                                     Label {
-                                        text: '155.00'
+                                        text: dayincome
                                         textStyle.color: Color.White
                                     }
                                 }
@@ -442,7 +448,7 @@ TabbedPane {
                                 }
                                 Container {
                                     Label {
-                                        text: '1311.99'
+                                        text: income
                                         textStyle.fontSize: FontSize.Medium
                                         textStyle.color: Color.White
                                     }
@@ -462,7 +468,7 @@ TabbedPane {
                                 }
                                 Container {
                                     Label {
-                                        text: '24.30%'
+                                        text: rate
                                         textStyle.fontSize: FontSize.Medium
                                         textStyle.color: Color.White
                                     }
@@ -642,8 +648,25 @@ TabbedPane {
 //        theStarItemsModel.insert({"gid": "123", "name":"上证指数", "nowPic": "-17.32", "dot": "2979.3388", "rate": "12", "yestodEndPri": "123", "nowPri": "123"});
         _nao.starReturned.connect(appendStarItemData);
         _nao.keyReturned.connect(appendKeyItemData);
+        _nao.getSimulationData.connect(getSimulateData);
     }
-
+    
+    function getSimulateData(resp){
+        var size = resp.size;
+        if(size == 0){
+            total = 0;
+            dayincome = 0;
+            income = 0;
+            rate = 0;
+        }
+        else{
+            total = resp.total;
+            dayincome = resp.dayincome;
+            income = resp.income;
+            rate = resp.rate;
+        }
+    }
+    
     function appendStarItemData(success, resp) {
         if (success) {
             var keyItemObj = JSON.parse(resp);

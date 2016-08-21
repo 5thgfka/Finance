@@ -57,6 +57,7 @@ ApplicationUI::ApplicationUI() :
     qDebug() << "application ui.cpp start";
     nao->getdata();
     nao->getKeyItems();
+    nao->getSimulateData();
     qDebug() << "application ui.cpp end";
     qml->setContextProperty("_nao", nao);
     qml->setContextProperty("_app", this);
