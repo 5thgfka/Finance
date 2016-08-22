@@ -122,7 +122,7 @@ Sheet {
                             orientation: LayoutOrientation.LeftToRight
                         }
                         Label {
-                            text: "ΩÒø™"
+                            text: "‰ªäÂºÄ"
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Center
@@ -142,7 +142,7 @@ Sheet {
                             orientation: LayoutOrientation.LeftToRight
                         }
                         Label {
-                            text: "◊Ó∏ﬂ"
+                            text: "ÊúÄÈ´ò"
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Center
@@ -162,7 +162,7 @@ Sheet {
                             orientation: LayoutOrientation.LeftToRight
                         }
                         Label {
-                            text: "≥…Ωª¡ø(π…)"
+                            text: "Êàê‰∫§Èáè(ËÇ°)"
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Center
@@ -182,7 +182,7 @@ Sheet {
                             orientation: LayoutOrientation.LeftToRight
                         }
                         Label {
-                            text: "◊Ú ’"
+                            text: "Êò®Êî∂"
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Center
@@ -202,7 +202,7 @@ Sheet {
                             orientation: LayoutOrientation.LeftToRight
                         }
                         Label {
-                            text: "◊ÓµÕ"
+                            text: "ÊúÄ‰Ωé"
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Center
@@ -222,7 +222,7 @@ Sheet {
                             orientation: LayoutOrientation.LeftToRight
                         }
                         Label {
-                            text: "◊‹ –÷µ"
+                            text: "ÊÄªÂ∏ÇÂÄº"
                         }
                         Container {
                             verticalAlignment: VerticalAlignment.Center
@@ -243,23 +243,23 @@ Sheet {
                     SegmentedControl {
                         id: trans
                         Option {
-                            text: qsTr("∑÷ ±")
+                            text: qsTr("ÂàÜÊó∂")
                             value: minurl
                             selected: true
                         }
 
                         Option {
-                            text: qsTr("»’K")
+                            text: qsTr("Êó•K")
                             value: dayurl
                         }
 
                         Option {
-                            text: qsTr("÷‹K")
+                            text: qsTr("Âë®K")
                             value: weekurl
                         }
 
                         Option {
-                            text: qsTr("‘¬K")
+                            text: qsTr("ÊúàK")
                             value: monthurl
                         }
 
