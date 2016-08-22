@@ -44,7 +44,7 @@ bool Nao::initDatabase()
         qDebug() << error.errorMessage();
         return false;
     }
-    //Ê×Ò³µÄ´óÅÌ¹É
+    //é¦–é¡µçš„å¤§ç›˜è‚¡
     const QString createSQL_home = "CREATE TABLE IF NOT EXISTS home "
             "  (id INTEGER PRIMARY KEY AUTOINCREMENT, "
             "  name VARCHAR, "
@@ -57,7 +57,7 @@ bool Nao::initDatabase()
         qDebug() << error.errorMessage();
         return false;
     }
-    //Ä£Äâ¹ÉÆ±±í
+    //æ¨¡æ‹Ÿè‚¡ç¥¨è¡¨
     const QString createSQL_simulate = "CREATE TABLE IF NOT EXISTS simulation"
             " (id INTEGER PRIMARY KEY AUTOINCREMENT, "
             " gid VARCHAR, "
@@ -165,6 +165,24 @@ void Nao::getdata()
     }
 }
 
+void Nao::getSimulateData(){
+    const QString sqlQuery = "SELECT * FROM simulation";
+    QVariant result = sqlda->execute(sqlQuery);
+    QVariantList list = result.value<QVariantList>();
+    int recordsRead = 0;
+    recordsRead = list.size();
+
+    for (int i = 0; i < recordsRead; i++) {
+        QVariantMap map = list.at(i).value<QVariantMap>();
+        QString stockStr = map["gid"].toString();
+        QString name = map["name"].toString();
+        QString price = map["price"].toString();
+        QString type = map["type"].toString();
+        QString amount = map["amount"].toString();
+        QString date = map["date"].toString();
+    }
+}
+
 void Nao::onHomeGetReply()
 {
     qDebug() << "onHomeGetReply";
@@ -191,24 +209,6 @@ void Nao::onGetReply()
     emit starReturned(true, QString::fromUtf8(buffer));
     disconnect(mReply);
     mReply->deleteLater();
-}
-
-void Nao::getSimulateData(){
-    const QString sqlQuery = "SELECT * FROM simulation";
-    QVariant result = sqlda->execute(sqlQuery);
-    QVariantList list = result.value<QVariantList>();
-    int recordsRead = 0;
-    recordsRead = list.size();
-
-    for (int i = 0; i < recordsRead; i++) {
-        QVariantMap map = list.at(i).value<QVariantMap>();
-        QString stockStr = map["gid"].toString();
-        QString name = map["name"].toString();
-        QString price = map["price"].toString();
-        QString type = map["type"].toString();
-        QString amount = map["amount"].toString();
-        QString date = map["date"].toString();
-    }
 }
 
 bb::cascades::GroupDataModel* Nao::model() const
