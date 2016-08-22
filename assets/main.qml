@@ -700,10 +700,10 @@ TabbedPane {
                 var traAmount = keyItemObj.result[0].data.traAmount;
                 var traNumber = keyItemObj.result[0].data.traNumber;
                 
-                var name = keyItemObj.result[0].dapandata.name;
-                var nowPic = keyItemObj.result[0].dapandata.nowPic;
-                var dot = keyItemObj.result[0].dapandata.dot;
-                var rate = keyItemObj.result[0].dapandata.rate;
+                var name = keyItemObj.result[0].data.name;
+                var nowPic = keyItemObj.result[0].data.increase;
+                var dot = keyItemObj.result[0].data.nowPri;
+                var rate = keyItemObj.result[0].data.increPer;
                 
                 var minurl = keyItemObj.result[0].gopicture.minurl
                 var dayurl = keyItemObj.result[0].gopicture.dayurl
@@ -738,10 +738,10 @@ TabbedPane {
                 var nowPri = keyItemObj.result[0].data.nowPri;
                 var gid = keyItemObj.result[0].data.gid;
 
-                var name = keyItemObj.result[0].dapandata.name;
-                var nowPic = keyItemObj.result[0].dapandata.nowPic;
-                var dot = keyItemObj.result[0].dapandata.dot;
-                var rate = keyItemObj.result[0].dapandata.rate;
+                var name = keyItemObj.result[0].data.name;
+                var nowPic = keyItemObj.result[0].data.increase;
+                var dot = keyItemObj.result[0].data.nowPri;
+                var rate = keyItemObj.result[0].data.increPer;
 
                 theKeyItemsModel.insert({"gid": gid, "name":name, "nowPic": nowPic, "dot": dot, "rate": rate, "yestodEndPri": yestodEndPri, "nowPri": nowPri});
             }
