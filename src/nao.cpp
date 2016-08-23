@@ -65,6 +65,8 @@ bool Nao::initDatabase()
             " price FLOAT, "
             " type VARCHAR, "
             " amount INTEGER, "
+            " brokerage FLOAT, "
+            " taxrate FLOAT, "
             " date DATE);";
     sqlda->execute(createSQL_simulate);
     if (!sqlda->hasError()) {
