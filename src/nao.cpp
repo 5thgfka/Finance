@@ -182,6 +182,8 @@ void Nao::getSimulateData(){
         QString type = map["type"].toString();
         QString amount = map["amount"].toString();
         QString date = map["date"].toString();
+        QString date = map["brokerage"].toString();
+        QString date = map["taxrate"].toString();
     }
 }
 
