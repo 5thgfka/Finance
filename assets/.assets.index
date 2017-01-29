@@ -1,5 +1,5 @@
 1
-13
+14
 config.json
 images/ads/ad1.png
 images/menuicon/icon_add.png
@@ -11,5 +11,6 @@ images/menuicon/icon_star_side.png
 images/menuicon/icon_trans.png
 KeyItem.qml
 main.qml
+SearchResults.qml
 StockPage.qml
 stocks.json

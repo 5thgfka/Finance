@@ -1,14 +1,16 @@
 import bb.cascades 1.4
 
 Sheet {
+    id: resultPage
+    
     content:  Page{
         titleBar: TitleBar {
             title: "搜索结果"
             dismissAction: ActionItem {
                 title: qsTr("Close") + Retranslate.onLanguageChanged
                 onTriggered: {
-                    stockPage.close()
-                    if (stockPage) stockPage.destroy();
+                    resultPage.close()
+                    if (resultPage) resultPage.destroy();
                 }
             }
         }

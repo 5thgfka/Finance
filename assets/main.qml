@@ -47,7 +47,7 @@ TabbedPane {
             content: Container {
 
                 Header {
-                    title: qsTr("search")
+                    title: qsTr("add")
                 }
 
                 Container {
@@ -63,7 +63,7 @@ TabbedPane {
                     bottomPadding: ui.du(3.3)
 
                     TextField {
-                        hintText: "search stocks"
+                        hintText: "add stocks: SH601111"
                     }
                     ImageButton {
                         defaultImageSource: "asset:///images/menuicon/icon_search.png"
@@ -179,36 +179,6 @@ TabbedPane {
                     topPadding: ui.du(3.3)
                     rightPadding: ui.du(3.3)
                     bottomPadding: ui.du(3.3)
-
-                    //! [0]
-                    // The event list filter input
-                    SegmentedControl {
-                        id: mainSC
-                        Option {
-                            text: qsTr("All")
-                            value: "all"
-                            selected: true
-                        }
-
-                        Option {
-                            text: qsTr("HS")
-                            value: "hs"
-                        }
-
-                        Option {
-                            text: qsTr("HK")
-                            value: "hk"
-                        }
-
-                        Option {
-                            text: qsTr("USA")
-                            value: "usa"
-                        }
-
-                        onSelectedIndexChanged: {
-                            // _calendar.filter = selectedValue
-                        }
-                    }
                     //! [1]
                     // The list view with all events
                     ListView {
@@ -467,14 +437,17 @@ TabbedPane {
                 
             }
         },
+        
         GroupDataModel {
             id: theKeyItemsModel
             grouping: ItemGrouping.None
         },
+        
         GroupDataModel {
             id: theStarItemsModel
             grouping: ItemGrouping.None
         },
+        
         GroupDataModel {
             id: theStarItemsBackModel
             grouping: ItemGrouping.None

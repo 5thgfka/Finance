@@ -31,7 +31,7 @@ bool Nao::initDatabase()
 {
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(DB_PATH);
-
+    //关注的股票
     const QString createSQL_bookmark = "CREATE TABLE IF NOT EXISTS bookmark "
             "  (id INTEGER PRIMARY KEY AUTOINCREMENT, "
             "  type VARCHAR, "
@@ -182,8 +182,6 @@ void Nao::getSimulateData(){
         QString type = map["type"].toString();
         QString amount = map["amount"].toString();
         QString date = map["date"].toString();
-        QString date = map["brokerage"].toString();
-        QString date = map["taxrate"].toString();
     }
 }
 
